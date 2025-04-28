@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.hola.screens.HomeScreen
 import com.example.hola.ui.theme.HolaTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HolaTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                HomeScreen() // It now handles Scaffold properly with TopBar and BottomBar
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HolaTheme {
-        Greeting("Android")
     }
 }

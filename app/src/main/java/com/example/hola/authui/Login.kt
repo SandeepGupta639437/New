@@ -2,6 +2,7 @@ package com.example.hola.authui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,18 +43,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hola.R
 
-@Preview
+
+
 @Preview
 @Composable
-fun SignUpScreen() {
-    val fullName = remember { mutableStateOf("") }
+fun LoginScreen() {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Background image
+        // Background
         Image(
             painter = painterResource(id = R.drawable.auth_background),
             contentDescription = null,
@@ -61,41 +62,23 @@ fun SignUpScreen() {
             modifier = Modifier.matchParentSize()
         )
 
-        // Foreground content
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize().padding(24.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
         ) {
             Spacer(modifier = Modifier.height(40.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.signup_illustration),
-                contentDescription = "Sign Up Illustration",
+                painter = painterResource(id = R.drawable.login_illustration), // replace with your illustration
+                contentDescription = "Login Illustration",
                 modifier = Modifier.height(150.dp).width(200.dp)
             )
 
-            Text("Sign Up", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            Text("Use proper information to continue", color = Color.LightGray, fontSize = 14.sp)
-
-            OutlinedTextField(
-                value = fullName.value,
-                onValueChange = { fullName.value = it },
-                label = { Text("Full Name") },
-                leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    cursorColor = Color.White,
-                    focusedLeadingIconColor = Color.White,
-                    unfocusedLeadingIconColor = Color.Gray,
-                    focusedLabelColor = Color.White,
-                    unfocusedLabelColor = Color.Gray
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
+            Text("Sign In", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text("Enter valid user name & password to continue", color = Color.LightGray, fontSize = 14.sp)
 
             OutlinedTextField(
                 value = email.value,
@@ -136,22 +119,23 @@ fun SignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
+            Text(
+                text = "Forgot password?",
+                color = Color.LightGray,
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 4.dp)
+            )
+
             Button(
-                onClick = { /* Handle Sign Up */ },
+                onClick = { /* Handle login */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C89F6)),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Create Account", color = Color.White)
+                Text("Login", color = Color.White)
             }
-
-            Text(
-                text = "By signing up, you agree to our Terms & Conditions and Privacy and Policy",
-                color = Color.LightGray,
-                fontSize = 12.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Divider(modifier = Modifier.weight(1f), color = Color.Gray)
@@ -174,11 +158,11 @@ fun SignUpScreen() {
             }
 
             Row {
-                Text("Already have an account? ", color = Color.LightGray)
+                Text("Don’t have an account? ", color = Color.LightGray)
                 Text(
-                    "Sign in",
+                    "Sign up",
                     color = Color(0xFF9C89F6),
-                    modifier = Modifier.clickable { /* Navigate to Sign In */ }
+                    modifier = Modifier.clickable { /* Navigate to Sign Up */ }
                 )
             }
         }
