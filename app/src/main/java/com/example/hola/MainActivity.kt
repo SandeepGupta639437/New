@@ -1,27 +1,28 @@
 package com.example.hola
 
+import android.app.PictureInPictureParams
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key.Companion.Home
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.hola.screens.HomeScreen
+import androidx.annotation.RequiresApi
+import com.example.hola.screens.Main
 import com.example.hola.ui.theme.HolaTheme
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        val pictureInPictureParams = PictureInPictureParams.Builder().build()
+        enterPictureInPictureMode(pictureInPictureParams)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             HolaTheme {
-                HomeScreen() // It now handles Scaffold properly with TopBar and BottomBar
+                Main()
             }
         }
     }

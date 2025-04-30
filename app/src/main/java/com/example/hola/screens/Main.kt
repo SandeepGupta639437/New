@@ -42,7 +42,7 @@ fun Main() {
     val navItems = listOf(
         NavItem("home", R.drawable.home_icon),
         NavItem("explore", R.drawable.explore_icon),
-        NavItem("createpost", R.drawable.createpost_icon),
+        NavItem("Create", R.drawable.createpost_icon),
         NavItem("location", R.drawable.location_icon),
         NavItem("profile", R.drawable.profile_icon)
     )
@@ -62,15 +62,15 @@ fun Main() {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 10.dp, vertical = 20.dp)
-                        .shadow(24.dp, RoundedCornerShape(14.dp))
-                        .background(Color(0xFFF7F7F7), RoundedCornerShape(14.dp))
+                        .shadow(24.dp)
+                        .background(Color(0xFF0E132A))
                 ) {
                     NavigationBar(
-                        containerColor = Color.White,
+                        containerColor = Color(0xFF0E132A),
                         modifier = Modifier
+                            .padding(horizontal = 10.dp,vertical= 10.dp)
                             .fillMaxWidth()
-                            .height(80.dp)
+                            .height(90.dp)
                     ) {
                         navItems.forEachIndexed { index, item ->
                             NavigationBarItem(
@@ -100,13 +100,13 @@ fun Main() {
                                             Icon(
                                                 painter = painterResource(id = item.icon),
                                                 contentDescription = item.label,
-                                                tint = if (selectedIndex == index) Color.White else Color.Black,
+                                                tint = if (selectedIndex == index) Color.White else Color.White,
                                                 modifier = Modifier.size(22.dp)
                                             )
                                             Text(
                                                 text = item.label.capitalize(),
-                                                color = if (selectedIndex == index) Color.White else Color.Black,
-                                                fontSize = 12.sp,
+                                                color = if (selectedIndex == index) Color.White else Color.White,
+                                                fontSize = 10.sp,
                                                 fontWeight = FontWeight.Medium,
                                                 modifier = Modifier.padding(top = 4.dp)
                                             )
@@ -149,7 +149,7 @@ fun Main() {
         ) {
             composable("home") { HomeScreen() }
             composable("explore") { ExploreScreen() }
-            composable("createpost") { CreatePost() }
+            composable("Create") { CreatePost() }
             composable("location") { LocationPage() }
             composable("profile") { ProfilePage() }
         }
@@ -162,7 +162,8 @@ fun TopBar() {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF000001), shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+            .padding(horizontal = 16.dp,)
+            .padding(top=30.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -179,32 +180,3 @@ fun TopBar() {
     }
 }
 
-@Composable
-fun displayInFullScreen(image: String, dismiss: () -> Unit) {
-    var offsetY by remember { mutableStateOf(0f) }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .pointerInput(Unit) {
-                detectVerticalDragGestures(
-                    onDragEnd = {
-                        if (offsetY < -245 || offsetY > 245) dismiss() else offsetY = 0f
-                    },
-                    onVerticalDrag = { _, dragAmount ->
-                        offsetY += dragAmount
-                    }
-                )
-            },
-        contentAlignment = Alignment.Center
-    ) {
-        AsyncImage(
-            model = image,
-            contentDescription = "Full Screen Image",
-            modifier = Modifier
-                .fillMaxSize()
-                .graphicsLayer { translationY = offsetY },
-            contentScale = ContentScale.Fit
-        )
-    }
-}
